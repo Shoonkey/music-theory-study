@@ -1,0 +1,47 @@
+{
+  "appTitle": "Study music theory",
+  "quizzes": {
+    "placeNoteTreble": "Place the note (treble clef)",
+    "placeNoteBass": "Place the note (bass clef)",
+    "circleOfFifths": "Circle of Fifths"
+  },
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "Home",
+        "description": "Choose a path to practice music theory"
+      },
+      "chooseQuiz": "Choose a quiz"
+    },
+    "placeNote": {
+      "meta": {
+        "title": "Place the note",
+        "description": "Identify where the note is given the clef"
+      },
+      "confirm": "Confirm",
+      "next": "Next",
+      "exercise": {
+        "description": "Click / Tap a line or space to place a note.",
+        "goal": "Place a note in",
+        "result": {
+          "correct": "You got it!",
+          "incorrect": "Oh no, you missed! You chose"
+        }
+      }
+    },
+    "circleOfFifths": {
+      "meta": {
+        "title": "Circle of Fifths",
+        "description": "Identify the missing part of the Circle of Fifths"
+      },
+      "confirm": "Confirm",
+      "next": "Next",
+      "exerciseDescription": "Which piece of the circle of fifths is missing?",
+      "answerButton": "That's it!",
+      "result": {
+        "correct": "Well done!",
+        "incorrect": "Oh no, you missed. The answer was"
+      }
+    }
+  }
+}

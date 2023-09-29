@@ -1,0 +1,47 @@
+{
+  "appTitle": "Estude teoria musical",
+  "quizzes": {
+    "placeNoteTreble": "Posicione a nota (clave de sol)",
+    "placeNoteBass": "Posicione a nota (clave de fá)",
+    "circleOfFifths": "Círculo de Quintas"
+  },
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "Página inicial",
+        "description": "Escolha um caminho pra praticar teoria musical"
+      },
+      "chooseQuiz": "Escolha um quiz"
+    },
+    "placeNote": {
+      "meta": {
+        "title": "Posicione a nota",
+        "description": "Identifique onde fica a nota considerando a clave"
+      },
+      "confirm": "Confirmar",
+      "next": "Próximo",
+      "exercise": {
+        "description": "Clique / Toque em uma linha ou espaço para pôr uma nota.",
+        "goal": "Coloque uma nota em",
+        "result": {
+          "correct": "Muito bem!",
+          "incorrect": "Oh não, você errou! Você escolheu"
+        }
+      }
+    },
+    "circleOfFifths": {
+      "meta": {
+        "title": "Circle of Fifths",
+        "description": "Identify the missing part of the Circle of Fifths"
+      },
+      "confirm": "Confirmar",
+      "next": "Próximo",
+      "exerciseDescription": "Que parte do círculo de quintas está faltando?",
+      "answerButton": "É isso!",
+      "result": {
+        "correct": "Muito bem!",
+        "incorrect": "Oh não, você errou. A resposta era"
+      }
+    }
+  }
+}

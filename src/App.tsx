@@ -11,6 +11,9 @@ import AppSettingsProvider from "./components/AppSettingsProvider";
 import Root from "./components/Root";
 import setupI18N from "./i18n";
 
+import "@fontsource/arvo/400.css";
+import "@fontsource/arvo/700.css";
+
 interface AppProps {
   isSubapp?: boolean;
   theme?: "dark" | "light";

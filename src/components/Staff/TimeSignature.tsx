@@ -14,6 +14,7 @@ function TimeSignature({ notesPerBar, unitNote }: TimeSignatureProps) {
       fontFamily="Martian Mono"
       fontSize={86}
       color="#efae32"
+      textShadow="0px 2px 2px black"
     >
       <Heading as="h2" fontFamily="inherit" fontSize="inherit">
         {notesPerBar}

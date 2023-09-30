@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, Image } from "@chakra-ui/react";
+import { Center, Flex, Heading, Image, useColorModeValue } from "@chakra-ui/react";
 import { CircleDashed, MusicNoteSimple } from "@phosphor-icons/react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 
 import QuizInfo from "../shared/QuizInfo";
 import Page from "../components/Page";
-
-import "@fontsource/arvo/700.css";
 
 function Homepage() {
   const { t } = useTranslation();
@@ -47,12 +45,14 @@ function Homepage() {
     [t]
   );
 
+  const cardBackgroundColor = useColorModeValue("#d2d2d2", "#2b2b2b");
+
   return (
     <Page metaTitle="home">
       <Center flexDir="column" flexGrow={1}>
         <Flex alignItems="center" flexDir="column" mb={12}>
           <MusicNoteSimple size={128} color="#efae32" />
-          <Heading mt={4} as="h2" fontFamily="Arvo">
+          <Heading mt={4} as="h2" fontFamily="Arvo" fontWeight="bold">
             {t("pages.home.chooseQuiz")}
           </Heading>
         </Flex>
@@ -60,11 +60,14 @@ function Homepage() {
           {quizzes.map((quiz, index) => (
             <Link to={quiz.href} key={`quiz-${index}`}>
               <Flex
+                borderStyle="solid"
+                borderWidth="2px"
+                borderColor="gray.800"
                 flexDir="column"
                 h="100%"
                 px={10}
                 py={6}
-                bg="#2b2b2b"
+                bg={cardBackgroundColor}
                 gap={4}
                 maxW="300px"
                 justifyContent="baseline"

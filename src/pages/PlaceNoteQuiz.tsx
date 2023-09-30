@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Box, Button, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
@@ -7,6 +7,7 @@ import Clef from "../shared/Clef";
 import { getNoteFromIndex, getRandomPiece } from "../shared/util";
 import Page from "../components/Page";
 import Staff from "../components/Staff";
+import { useSearchParams } from "react-router-dom";
 
 interface QuizData {
   stage: "choose-note" | "note-chosen";
@@ -14,12 +15,11 @@ interface QuizData {
   chosenNoteIndex: number | null;
 }
 
-interface PlaceNoteQuizProps {
-  clef: Clef;
-}
-
-function PlaceNoteQuiz({ clef }: PlaceNoteQuizProps) {
+function PlaceNoteQuiz() {
   const { t } = useTranslation();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clefParam = useMemo(() => searchParams.get("clef"), [searchParams]);
 
   const [quizData, setQuizData] = useState<QuizData | null>(null);
 
@@ -34,9 +34,17 @@ function PlaceNoteQuiz({ clef }: PlaceNoteQuizProps) {
       expectedNote: getRandomPiece({ type: "note" }) as Note,
       chosenNoteIndex: null,
     });
-  }, [clef]);
+  }, [searchParams]);
 
-  if (!quizData)
+  useEffect(() => {
+    if (clefParam) return;
+
+    const newParams = new URLSearchParams();
+    newParams.set("clef", "treble");
+    setSearchParams(newParams, { replace: true });
+  });
+
+  if (!clefParam || !quizData)
     return (
       <Page metaTitle="placeNote">
         <Flex flexGrow={1} justifyContent="center" alignItems="center">
@@ -45,10 +53,12 @@ function PlaceNoteQuiz({ clef }: PlaceNoteQuizProps) {
       </Page>
     );
 
+  const clef = clefParam as Clef;
+
   return (
     <Page metaTitle="placeNote">
       <Flex flexDir="column" flexGrow={1} py={4} px={6} gap={6}>
-        <Text ml={6} fontSize={22} color="gray.500" letterSpacing=".8px">
+        <Text ml={6} fontSize={22} color="gray.500" letterSpacing=".8px" textAlign="center">
           {t("pages.placeNote.exercise.description")}
         </Text>
         <Flex justifyContent="center" flexDir="column">
@@ -102,8 +112,8 @@ function PlaceNoteQuiz({ clef }: PlaceNoteQuizProps) {
               as="h2"
               fontSize={48}
               textAlign="center"
-              color="#fcbd44"
               fontWeight="light"
+              fontFamily="Arvo"
             >
               {t("pages.placeNote.exercise.goal")}{" "}
               <strong>{quizData.expectedNote}</strong>
@@ -121,11 +131,16 @@ function PlaceNoteQuiz({ clef }: PlaceNoteQuizProps) {
               fontSize={24}
             >
               {quizData.expectedNote ===
-              getNoteFromIndex(clef, quizData.chosenNoteIndex)
-                ? t("pages.placeNote.exercise.result.correct")
-                : `${t(
-                    "pages.placeNote.exercise.result.incorrect"
-                  )} ${getNoteFromIndex(clef, quizData.chosenNoteIndex)}`}
+              getNoteFromIndex(clef, quizData.chosenNoteIndex) ? (
+                t("pages.placeNote.exercise.result.correct")
+              ) : (
+                <>
+                  {t("pages.placeNote.exercise.result.incorrect")}{" "}
+                  <Text as="strong">
+                    {getNoteFromIndex(clef, quizData.chosenNoteIndex)}
+                  </Text>
+                </>
+              )}
             </Text>
           )}
         </Box>

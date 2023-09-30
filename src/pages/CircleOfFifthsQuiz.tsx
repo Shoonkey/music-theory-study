@@ -7,6 +7,7 @@ import {
   Spinner,
   Text,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import Page from "../components/Page";
@@ -26,6 +27,8 @@ function CircleOfFifthsQuiz() {
 
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const scale = useBreakpointValue({ base: 0.5, sm: 0.75, md: 1 });
+
+  const inputBorderColor = useColorModeValue("gray.800", "gray.300");
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -70,11 +73,12 @@ function CircleOfFifthsQuiz() {
         gap={6}
       >
         <CircleOfFifths scale={scale} missingPiece={quizData.missingPiece} />
-        <Heading as="h2">
+        <Heading as="h2" fontFamily="Arvo" fontWeight="light">
           {t("pages.circleOfFifths.exerciseDescription")}
         </Heading>
         <Flex as="form" onSubmit={handleSubmit} gap={2}>
           <Input
+            borderColor={inputBorderColor}
             value={quizData.userAnswer}
             fontSize="32px"
             w="256px"
@@ -103,11 +107,14 @@ function CircleOfFifthsQuiz() {
               }
             >
               {quizData.missingPiece.toLowerCase() ===
-              quizData.userAnswer.toLowerCase()
-                ? t("pages.circleOfFifths.result.correct")
-                : t("pages.circleOfFifths.result.incorrect") +
-                  " " +
-                  quizData.missingPiece}
+              quizData.userAnswer.toLowerCase() ? (
+                t("pages.circleOfFifths.result.correct")
+              ) : (
+                <>
+                  {t("pages.circleOfFifths.result.incorrect")}{" "}
+                  <Text as="strong">{quizData.missingPiece}</Text>
+                </>
+              )}
             </Text>
             <Button
               onClick={() => {

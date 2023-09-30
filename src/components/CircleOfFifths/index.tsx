@@ -1,58 +1,6 @@
-import { Box, Flex, Text, TextProps } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 
-import Note from "../../shared/Note";
-
-interface PieceProps {
-  note: Note;
-  missing: boolean;
-  isScale?: boolean;
-  type?: "major" | "minor";
-  accidental?: "sharp" | "flat";
-}
-
-const Piece = ({
-  note,
-  accidental,
-  type,
-  isScale,
-  missing,
-  ...props
-}: PieceProps & TextProps) => {
-  if (missing)
-    return (
-      <Text
-        fontSize="32px"
-        fontWeight="bold"
-        color="#ff61ca"
-        position="absolute"
-        transform="translate(-50%, -50%)"
-        background="black"
-        w="48px"
-        h="48px"
-        borderRadius="50%"
-        textAlign="center"
-        {...props}
-      >
-        ?
-      </Text>
-    );
-
-  return (
-    <Text position="absolute" transform="translate(-50%, -50%)" {...props}>
-      <Text color="#efae32" fontWeight="bold" fontSize="24px" as="strong">
-        {note}
-        {accidental === "sharp" && "#"}
-        {accidental === "flat" && "b"}
-      </Text>
-      {isScale && (
-        <Text as="span" fontSize="16px">
-          {type === "major" && "maj"}
-          {type === "minor" && "min"}
-        </Text>
-      )}
-    </Text>
-  );
-};
+import Piece from "./Piece";
 
 interface CircleOfFifthsProps {
   scale?: number;
@@ -60,6 +8,8 @@ interface CircleOfFifthsProps {
 }
 
 function CircleOfFifths({ scale = 1, missingPiece }: CircleOfFifthsProps) {
+  const circleColor = useColorModeValue("gray.800", "gray.400");
+
   return (
     <Flex
       position="relative"
@@ -70,7 +20,14 @@ function CircleOfFifths({ scale = 1, missingPiece }: CircleOfFifthsProps) {
       transform={`scale(${scale})`}
     >
       {/* Circle */}
-      <Box w="400px" h="400px" borderRadius="50%" border="solid 1px #e2e2e2" />
+      <Box
+        w="400px"
+        h="400px"
+        borderRadius="50%"
+        borderStyle="solid"
+        borderWidth="1px"
+        borderColor={circleColor}
+      />
       {/* Inner layer: Minor scales */}
       <Piece
         missing={missingPiece === "Fmin"}

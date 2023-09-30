@@ -7,6 +7,7 @@ import {
   Select,
   Tooltip,
   VisuallyHidden,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { SunHorizon, MoonStars, ArrowLeft } from "@phosphor-icons/react";
@@ -24,8 +25,11 @@ function Root() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const backgroundColor = useColorModeValue("gray.200", "gray.800");
+
   return (
     <Flex
+      bg={backgroundColor}
       flexDir="column"
       w={isSubapp ? "100%" : "100dvw"}
       h={isSubapp ? "100%" : "100dvh"}
@@ -86,7 +90,7 @@ function Root() {
           <Route path="/" element={<Homepage />} />
           <Route
             path="/quiz/place-note"
-            element={<PlaceNoteQuiz clef="treble" />}
+            element={<PlaceNoteQuiz />}
           />
           <Route
             path="/quiz/circle-of-fifths"

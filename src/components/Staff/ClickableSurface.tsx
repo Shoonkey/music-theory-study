@@ -33,8 +33,8 @@ function ClickableSurface({
 }: ClickableSurfaceProps) {
   const [showButton, setShowButton] = useState(false);
 
-  const unplacedBgColor = "blackAlpha.700";
-  const placedBgColor = "black";
+  const unplacedBgColor = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
+  const placedBgColor = useColorModeValue("black", "white");
   const lineColor = useColorModeValue("#2b2b2b", "#e2e2e2");
 
   return (

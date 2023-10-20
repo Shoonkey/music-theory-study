@@ -1,37 +1,29 @@
-import { useColorMode } from "@chakra-ui/react";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ColorMode, useColorMode } from "@chakra-ui/react";
+import { createContext, PropsWithChildren, useEffect } from "react";
 
 export interface AppSettingsData {
   isSubapp: boolean;
-  theme: "dark" | "light";
-  language: string;
+  theme: ColorMode;
 }
 
-interface AppSettingsProviderProps {
-  settings: AppSettingsData;
-  children: ReactNode;
-}
+type AppSettingsProviderProps = PropsWithChildren<AppSettingsData>;
 
-interface AppSettingsContext extends AppSettingsData {
-  setTheme: (theme: "dark" | "light") => void;
-}
-
-export const AppSettingsContext = createContext<AppSettingsContext>({
+export const AppSettingsContext = createContext<AppSettingsData>({
   isSubapp: false,
   theme: "dark",
-  setTheme: () => {},
-  language: "en-US",
 });
 
-function AppSettingsProvider({ settings, children }: AppSettingsProviderProps) {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+function AppSettingsProvider({
+  isSubapp,
+  theme,
+  children,
+}: AppSettingsProviderProps) {
   const { setColorMode } = useColorMode();
 
-  useEffect(() => setTheme(settings.theme), [settings]);
   useEffect(() => setColorMode(theme), [theme]);
 
   return (
-    <AppSettingsContext.Provider value={{ ...settings, theme, setTheme }}>
+    <AppSettingsContext.Provider value={{ isSubapp, theme }}>
       {children}
     </AppSettingsContext.Provider>
   );

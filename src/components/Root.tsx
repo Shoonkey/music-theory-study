@@ -7,6 +7,7 @@ import {
   Select,
   Tooltip,
   VisuallyHidden,
+  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
@@ -20,11 +21,11 @@ import PlaceNoteQuiz from "../pages/PlaceNoteQuiz";
 
 function Root() {
   const { t, i18n } = useTranslation();
-  const { isSubapp, theme, setTheme } = useAppSettings();
-
+  const { colorMode: theme, setColorMode: setTheme } = useColorMode();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { isSubapp } = useAppSettings();
   const backgroundColor = useColorModeValue("gray.200", "gray.800");
 
   return (
@@ -88,10 +89,7 @@ function Root() {
       <Center flexGrow={1}>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route
-            path="/quiz/place-note"
-            element={<PlaceNoteQuiz />}
-          />
+          <Route path="/quiz/place-note" element={<PlaceNoteQuiz />} />
           <Route
             path="/quiz/circle-of-fifths"
             element={<CircleOfFifthsQuiz />}
